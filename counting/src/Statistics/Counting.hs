@@ -18,7 +18,7 @@ class MCounter c where
   type CounterElt c
   type CounterFrozen c
   newCounter    :: (CounterMonad c) c
-  incrCounter   :: c -> (CounterElt c) -> (CounterMonad c) ()
+  incrCounter   :: c -> CounterElt c -> (CounterMonad c) ()
   freezeCounter :: c -> (CounterMonad c) (CounterFrozen c)
 
 instance MCounter (IORef Int) where
@@ -27,7 +27,7 @@ instance MCounter (IORef Int) where
   type CounterFrozen (IORef Int) = Int
   newCounter = newIORef 0
   incrCounter ctref _x = modifyIORef' ctref succ
-  freezeCounter ctref = readIORef ctref
+  freezeCounter = readIORef
 
 instance (MCounter c, CounterMonad c ~ IO) => MCounter (IORef (IM.IntMap c)) where
   type CounterMonad (IORef (IM.IntMap c)) = CounterMonad c
