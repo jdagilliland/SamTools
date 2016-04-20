@@ -16,7 +16,10 @@ build-type:          Simple
 cabal-version:       >=1.10
 
 library
-  -- exposed-modules:     
+  Hs-Source-Dirs:      src, test
+  exposed-modules:     Statistics.Counting
+  Build-depends:       base >= 4.2 && < 5, bytestring, conduit, transformers, containers,
+                       criterion, biocore >= 0.2, unordered-containers, vector, hashable
   -- other-modules:       
   -- other-extensions:    
   build-depends:       base >=4.6 && <5
